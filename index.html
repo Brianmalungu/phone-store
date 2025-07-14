@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Shop</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>📱 SmartPhone Store</h1>
+    <div id="cart">
+      🛒 Cart: <span id="cart-count">0</span>
+    </div>
+  </header>
+
+  <main id="phone-list">
+    <!-- Phone items will be dynamically loaded here -->
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f7f7;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#phone-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.phone {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.phone img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+button {
+  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+const phones = [
+  { id: 1, name: "iPhone 14", price: 999, image: "https://via.placeholder.com/150?text=iPhone+14" },
+  { id: 2, name: "Samsung Galaxy S23", price: 899, image: "https://via.placeholder.com/150?text=Galaxy+S23" },
+  { id: 3, name: "Google Pixel 7", price: 799, image: "https://via.placeholder.com/150?text=Pixel+7" }
+];
+
+let cartCount = 0;
+
+function addToCart() {
+  cartCount++;
+  document.getElementById("cart-count").textContent = cartCount;
+}
+
+function loadPhones() {
+  const phoneList = document.getElementById("phone-list");
+  phones.forEach(phone => {
+    const div = document.createElement("div");
+    div.className = "phone";
+    div.innerHTML = `
+      <img src="${phone.image}" alt="${phone.name}">
+      <h3>${phone.name}</h3>
+      <p>$${phone.price}</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    `;
+    phoneList.appendChild(div);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadPhones);
+
+
